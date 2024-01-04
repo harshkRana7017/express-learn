@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const parser = require("cookie-parser");
 const session = require("express-session");
@@ -11,7 +13,6 @@ const authenticationRoute = require("./Routes/auth");
 const monogoStore = require("connect-mongo");
 
 const app = express();
-const PORT = 3001;
 
 app.use(express.json());
 app.use(express.urlencoded());
@@ -20,7 +21,7 @@ app.use(
   session({
     secret: "harshrana7017",
     resave: false,
-    saveUninitialized: false,   
+    saveUninitialized: false,
     //way to create a session store in mongo db, now even after the restarting of the server, the sessio id works
     store: monogoStore.create({ mongoUrl: "mongodb://127.0.0.1:27017/test" }),
   })
@@ -46,6 +47,6 @@ app.use((req, res, next) => {
 app.use("/api/groceries", grocRoute);
 app.use("/api/markets", marketRoute);
 
-app.listen(PORT, () => {
-  console.log(`running express server on port number ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`running express server on port number ${process.env.PORT}`);
 });

@@ -30,6 +30,11 @@ router.get("", (req, res) => {});
 //   }
 // });
 
+router.post("/discord/redirect", (req, res) => {
+  console.log("reciebvd");
+  res.sendStatus(200);
+});
+
 router.post("/login", passport.authenticate("local"), (req, res) => {
   console.log("logged in");
   res.sendStatus(200);
